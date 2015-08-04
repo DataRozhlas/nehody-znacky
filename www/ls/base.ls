@@ -31,9 +31,13 @@ barContainers = listItems.append \div
   ..attr \class \bar-container
 bars = barContainers.append \div
   ..attr \class \bar
+
+barLabels = bars.append \span
+  ..attr \class "label detail"
+
 barValues = bars.append \span
   ..attr \class \value
-barLabels = null
+barHelpLabel = null
 colorDomain = ig.utils.divideToParts [0, 0.13], 9
 colorDomain.push 1
 colorScale = d3.scale.linear!
@@ -48,18 +52,24 @@ drawMetric = (metric) ->
   barScale.domain [0 data[0][metric]]
   bars.style \width -> "#{barScale it[metric]}%"
   listItems.style \top -> "#{it.index * 34}px"
-  barLabels.remove! if barLabels
-  barLabels := bars
+  barHelpLabel.remove! if barHelpLabel
+  barHelpLabel := bars
     .filter ( -> it.index == 0)
     .append \span
       .attr \class \label
   switch metric
     | "ratioPerCar"
       barValues.html -> ig.utils.formatNumber it.ratioPerCar * 1e4, 1
-      barLabels.html "vážných nehod na 10 000 aut"
+      barHelpLabel.html "vážných nehod na 10 000 aut"
+      barLabels.html ->
+        if it.ratioPerCar > 0.0030
+          "#{ig.utils.formatNumber it.vaznych} vážných nehod z #{ig.utils.formatNumber it.nehod}"
+        else
+          "#{ig.utils.formatNumber it.vaznych} / #{ig.utils.formatNumber it.nehod}"
     | "ratioPerAccident"
       barValues.html -> "#{ig.utils.formatNumber it.ratioPerAccident * 1e2, 1} %"
-      barLabels.html "% vážných nehod"
+      barLabels.html -> "#{ig.utils.formatNumber it.vaznych} nehod, #{ig.utils.formatNumber it.automobilu} automobilů"
+      barHelpLabel.html "% vážných nehod"
 
 drawHistogram = ->
   new Tooltip!watchElements!
