@@ -11,6 +11,8 @@
     margin 0px
     padding 0px
     position relative
+    &.histogram
+      margin-top 30px
     li
       padding 0px
       margin 0px
@@ -79,3 +81,30 @@
           float left
           width (100% / 21)
           height 24px
+  .scale
+    position absolute
+    top 4px
+    left 150px
+    width 400px
+    > div
+      position absolute
+      &:nth-child(3)
+        right (100% / 21 * 5)
+      &:nth-child(2)
+        right (100% / 21 * 10)
+      &:nth-child(1)
+        right (100% / 21 * 15)
+      span
+        white-space nowrap
+      padding-right 10px
+      text-align right
+      &:before
+        content ""
+        position absolute
+        top 0px
+        right 0px
+        width 10px
+        height 25px
+        border-right 1px dotted #a
+        border-top 1px dotted #a
+

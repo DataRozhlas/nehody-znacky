@@ -73,6 +73,16 @@ drawMetric = (metric) ->
 
 drawHistogram = ->
   new Tooltip!watchElements!
+  list.classed \histogram yes
+  container.append \div
+    ..attr \class \scale
+    ..selectAll \div .data [5 10 15] .enter!append \div
+      ..attr \class \item
+      ..append \span .html (it, i) ->
+        if i
+          "#{it} let"
+        else
+          "#{it} let stará auta"
   listItems.append \div
     ..attr \class \histogram
     ..selectAll \div .data (.histogram) .enter!append \div
