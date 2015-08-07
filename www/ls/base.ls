@@ -61,14 +61,14 @@ drawMetric = (metric) ->
     | "ratioPerCar"
       barValues.html -> ig.utils.formatNumber it.ratioPerCar * 1e4, 1
       barHelpLabel.html "vážných nehod na 10 000 aut"
+      barLabels.html -> "#{ig.utils.formatNumber it.vaznych} nehod, #{ig.utils.formatNumber it.automobilu} automobilů"
+    | "ratioPerAccident"
+      barValues.html -> "#{ig.utils.formatNumber it.ratioPerAccident * 1e2, 1} %"
       barLabels.html ->
         if it.ratioPerCar > 0.0030
           "#{ig.utils.formatNumber it.vaznych} vážných nehod z #{ig.utils.formatNumber it.nehod}"
         else
           "#{ig.utils.formatNumber it.vaznych} / #{ig.utils.formatNumber it.nehod}"
-    | "ratioPerAccident"
-      barValues.html -> "#{ig.utils.formatNumber it.ratioPerAccident * 1e2, 1} %"
-      barLabels.html -> "#{ig.utils.formatNumber it.vaznych} nehod, #{ig.utils.formatNumber it.automobilu} automobilů"
       barHelpLabel.html "% vážných nehod"
 
 drawHistogram = ->
